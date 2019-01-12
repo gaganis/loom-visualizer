@@ -28,15 +28,20 @@ public class VisualizerJPanel extends JPanel {
         int height = getHeight();
         int width = getWidth();
 
-        int partitionSize = (time1) / (width);
+        int partitionSize = time1 / width;
+        int laneHeight = height / (ploughers1.length * 2);
 
         for (int i = 0; i < ploughers1.length; i++) {
             int[] ground1 = ploughers1[i].getGround();
             int[] ground2 = ploughers2[i].getGround();
 
-            drawGrounds(g2d, partitionSize, i * 2, ground1,
+            drawGrounds(g2d, partitionSize,
+                    i * 2, laneHeight,
+                    ground1,
                     (int gradient) -> new Color(255, 255 - gradient, 255 - gradient));
-            drawGrounds(g2d, partitionSize, i * 2 + 1, ground2,
+            drawGrounds(g2d, partitionSize,
+                    i * 2 + 1, laneHeight,
+                    ground2,
                     (int gradient) -> new Color(255 - gradient, 255 - gradient, 255));
         }
 
@@ -48,7 +53,7 @@ public class VisualizerJPanel extends JPanel {
 
     }
 
-    private void drawGrounds(Graphics2D g2d, int partitionSize, int laneNumber, int[] ground1, ColorCreator colorCreator) {
+    private void drawGrounds(Graphics2D g2d, int partitionSize, int laneNumber, int laneHeight, int[] ground1, ColorCreator colorCreator) {
         Map<Integer, Integer> integerIntegerMap = calculatePartitionCounts(partitionSize, ground1);
 
         for (Integer key : integerIntegerMap.keySet()) {
@@ -57,7 +62,7 @@ public class VisualizerJPanel extends JPanel {
             int gradient = ((count * 160) / partitionSize) + (255 - 160);
             g2d.setColor(colorCreator.createColor(gradient));
 
-            g2d.drawLine(key, laneNumber * LANE_HEIGHT, key, (laneNumber + 1) * LANE_HEIGHT);
+            g2d.drawLine(key, laneNumber * laneHeight, key, (laneNumber + 1) * laneHeight);
         }
     }
 
