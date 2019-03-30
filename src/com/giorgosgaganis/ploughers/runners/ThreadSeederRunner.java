@@ -2,13 +2,13 @@ package com.giorgosgaganis.ploughers.runners;
 
 import java.util.concurrent.CountDownLatch;
 
-import com.giorgosgaganis.ploughers.Plougher;
+import com.giorgosgaganis.ploughers.Seeder;
 
 
-public class ThreadPloughRunner implements PloughRunner {
-    public void doPloughs(Plougher[] ploughers) {
-        CountDownLatch gate = new CountDownLatch(ploughers.length);
-        for (int i = 0; i < ploughers.length; i++) {
+public class ThreadSeederRunner implements SeederRunner {
+    public void doPloughs(Seeder[] seeders) {
+        CountDownLatch gate = new CountDownLatch(seeders.length);
+        for (int i = 0; i < seeders.length; i++) {
             int finalI = i;
             new Thread() {
                 @Override
@@ -21,7 +21,7 @@ public class ThreadPloughRunner implements PloughRunner {
                         e.printStackTrace();
                         return;
                     }
-                    ploughers[finalI].plough();
+                    seeders[finalI].seed();
                     super.run();
                 }
             }.start();

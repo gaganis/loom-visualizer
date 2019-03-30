@@ -11,11 +11,11 @@ import java.util.Map;
 public class VisualizerJPanel extends JPanel {
     private static final int LANE_HEIGHT = 10;
     private final int time1;
-    private final Plougher[] ploughers1;
+    private final Seeder[] ploughers1;
     private final int time2;
-    private final Plougher[] ploughers2;
+    private final Seeder[] ploughers2;
 
-    VisualizerJPanel(int time1, Plougher[] ploughers1, int time2, Plougher[] ploughers2) {
+    VisualizerJPanel(int time1, Seeder[] ploughers1, int time2, Seeder[] ploughers2) {
         this.time1 = time1;
         this.ploughers1 = ploughers1;
         this.time2 = time2;
