@@ -16,7 +16,7 @@ public class Main {
 
 
         final int COUNT = 40;
-        final int GROUND_LENGTH = 512_000;
+        final int GROUND_LENGTH = 1_512_000;
         PloughRunner runner1 = new ThreadPloughRunner();
         Plougher[] ploughers1 = new Plougher[COUNT];
         int time1 = runExperiment(COUNT, GROUND_LENGTH, runner1, ploughers1);
