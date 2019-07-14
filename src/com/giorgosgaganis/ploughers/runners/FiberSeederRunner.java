@@ -6,10 +6,11 @@ import com.giorgosgaganis.ploughers.Seeder;
 
 public class FiberSeederRunner implements SeederRunner {
     public void doPloughs(Seeder[] seeders) {
+        FiberScope scope = FiberScope.open();
         CountDownLatch gate = new CountDownLatch(seeders.length);
         for (int i = 0; i < seeders.length; i++) {
             int finalI = i;
-            Fiber fiber = Fiber.schedule(() -> {
+            Fiber fiber = scope.schedule(() -> {
 
                 gate.countDown();
                 try {
