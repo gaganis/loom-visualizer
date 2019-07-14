@@ -30,20 +30,20 @@ public class VisualizerJPanel extends JPanel {
         int width = getWidth();
 
         int partitionSize = time1 / width;
-        int laneHeight = height / (ploughers1.length);
+        int laneHeight = height / (ploughers1.length * 2);
 
         for (int i = 0; i < ploughers1.length; i++) {
             int[] ground1 = ploughers1[i].getGround();
             int[] ground2 = ploughers2[i].getGround();
 
             drawGrounds(g2d, partitionSize,
-                    i, laneHeight,
+                    i * 2, laneHeight,
                     ground1,
                     (int gradient) -> new Color(255, 255 - gradient, 255 - gradient));
-//            drawGrounds(g2d, partitionSize,
-//                    i * 2 + 1, laneHeight,
-//                    ground2,
-//                    (int gradient) -> new Color(255 - gradient, 255 - gradient, 255));
+            drawGrounds(g2d, partitionSize,
+                    i * 2 + 1, laneHeight,
+                    ground2,
+                    (int gradient) -> new Color(255 - gradient, 255 - gradient, 255));
 
             g2d.setColor(Color.LIGHT_GRAY);
             g2d.drawLine(0, (i * 2 + 1) * laneHeight, width, (i * 2 + 1) * laneHeight);
@@ -54,8 +54,8 @@ public class VisualizerJPanel extends JPanel {
         g2d.setColor(Color.RED);
         g2d.drawString("Thread run ", width - 120, 20);
 
-//        g2d.setColor(Color.BLUE);
-//        g2d.drawString("Fiber run ", width - 120, 50);
+        g2d.setColor(Color.BLUE);
+        g2d.drawString("Fiber run ", width - 120, 50);
 
     }
 
