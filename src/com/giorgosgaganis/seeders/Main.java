@@ -15,15 +15,19 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
 
 
-        final int COUNT = 40;
+        final int COUNT = 20;
         final int GROUND_LENGTH = 1_512_000;
+
+        // Run with kernel threads
         SeederRunner runner1 = new ThreadSeederRunner();
         Seeder[] seeders1 = new Seeder[COUNT];
         int time1 = runExperiment(COUNT, GROUND_LENGTH, runner1, seeders1);
 
+        // Run with Fibers
         SeederRunner runner2 = new FiberSeederRunner();
         Seeder[] seeders2 = new Seeder[COUNT];
         int time2 = runExperiment(COUNT, GROUND_LENGTH, runner2, seeders2);
+
         visualizeData(time1, seeders1, time2, seeders2);
 
     }
