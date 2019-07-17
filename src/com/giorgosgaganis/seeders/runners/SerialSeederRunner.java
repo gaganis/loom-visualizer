@@ -1,9 +1,9 @@
-package com.giorgosgaganis.ploughers.runners;
+package com.giorgosgaganis.seeders.runners;
 
-import com.giorgosgaganis.ploughers.Seeder;
+import com.giorgosgaganis.seeders.Seeder;
 
 public class SerialSeederRunner implements SeederRunner {
-    public void doPloughs(Seeder[] seeders) {
+    public void doSeeding(Seeder[] seeders) {
         for (Seeder seeder : seeders) {
             seeder.seed();
         }

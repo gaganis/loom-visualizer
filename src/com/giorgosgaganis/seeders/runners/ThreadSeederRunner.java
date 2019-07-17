@@ -1,12 +1,12 @@
-package com.giorgosgaganis.ploughers.runners;
+package com.giorgosgaganis.seeders.runners;
 
 import java.util.concurrent.CountDownLatch;
 
-import com.giorgosgaganis.ploughers.Seeder;
+import com.giorgosgaganis.seeders.Seeder;
 
 
 public class ThreadSeederRunner implements SeederRunner {
-    public void doPloughs(Seeder[] seeders) {
+    public void doSeeding(Seeder[] seeders) {
         CountDownLatch gate = new CountDownLatch(seeders.length);
         for (int i = 0; i < seeders.length; i++) {
             int finalI = i;

@@ -1,4 +1,4 @@
-package com.giorgosgaganis.ploughers;
+package com.giorgosgaganis.seeders;
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -11,15 +11,15 @@ import java.util.Map;
 public class VisualizerJPanel extends JPanel {
     private static final int LANE_HEIGHT = 10;
     private final int time1;
-    private final Seeder[] ploughers1;
+    private final Seeder[] seeders1;
     private final int time2;
-    private final Seeder[] ploughers2;
+    private final Seeder[] seeders2;
 
-    VisualizerJPanel(int time1, Seeder[] ploughers1, int time2, Seeder[] ploughers2) {
+    VisualizerJPanel(int time1, Seeder[] seeders1, int time2, Seeder[] seeders2) {
         this.time1 = time1;
-        this.ploughers1 = ploughers1;
+        this.seeders1 = seeders1;
         this.time2 = time2;
-        this.ploughers2 = ploughers2;
+        this.seeders2 = seeders2;
     }
 
     @Override
@@ -30,11 +30,11 @@ public class VisualizerJPanel extends JPanel {
         int width = getWidth();
 
         int partitionSize = time1 / width;
-        int laneHeight = height / (ploughers1.length * 2);
+        int laneHeight = height / (seeders1.length * 2);
 
-        for (int i = 0; i < ploughers1.length; i++) {
-            int[] ground1 = ploughers1[i].getGround();
-            int[] ground2 = ploughers2[i].getGround();
+        for (int i = 0; i < seeders1.length; i++) {
+            int[] ground1 = seeders1[i].getGround();
+            int[] ground2 = seeders2[i].getGround();
 
             drawGrounds(g2d, partitionSize,
                     i * 2, laneHeight,

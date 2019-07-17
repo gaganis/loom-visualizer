@@ -1,4 +1,4 @@
-package com.giorgosgaganis.ploughers;
+package com.giorgosgaganis.seeders;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
