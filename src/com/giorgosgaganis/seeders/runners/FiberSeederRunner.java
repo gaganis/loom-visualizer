@@ -9,8 +9,8 @@ public class FiberSeederRunner implements SeederRunner {
         FiberScope scope = FiberScope.open();
         CountDownLatch gate = new CountDownLatch(seeders.length);
         for (int i = 0; i < seeders.length; i++) {
-            int finalI = i;
-            Fiber fiber = scope.schedule(() -> {
+            int seedPosition = i;
+            scope.schedule(() -> {
 
                 gate.countDown();
                 try {
@@ -19,7 +19,7 @@ public class FiberSeederRunner implements SeederRunner {
                     e.printStackTrace();
                     return;
                 }
-                seeders[finalI].seed();
+                seeders[seedPosition].seed();
             });
         }
     }

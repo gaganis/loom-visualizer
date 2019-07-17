@@ -9,7 +9,7 @@ public class ThreadSeederRunner implements SeederRunner {
     public void doSeeding(Seeder[] seeders) {
         CountDownLatch gate = new CountDownLatch(seeders.length);
         for (int i = 0; i < seeders.length; i++) {
-            int finalI = i;
+            int seedPosition = i;
             new Thread() {
                 @Override
                 public void run() {
@@ -21,7 +21,7 @@ public class ThreadSeederRunner implements SeederRunner {
                         e.printStackTrace();
                         return;
                     }
-                    seeders[finalI].seed();
+                    seeders[seedPosition].seed();
                     super.run();
                 }
             }.start();

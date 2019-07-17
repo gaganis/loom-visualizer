@@ -11,10 +11,7 @@ import com.giorgosgaganis.seeders.runners.ThreadSeederRunner;
 
 public class Main {
 
-
     public static void main(String[] args) throws InterruptedException {
-
-
         final int COUNT = 20;
         final int GROUND_LENGTH = 1_512_000;
 
@@ -22,32 +19,34 @@ public class Main {
         SeederRunner runner1 = new ThreadSeederRunner();
         Seeder[] seeders1 = new Seeder[COUNT];
         int time1 = runExperiment(COUNT, GROUND_LENGTH, runner1, seeders1);
+        System.out.println("Finished running experiment " +
+                "with Kernel Threads");
 
         // Run with Fibers
         SeederRunner runner2 = new FiberSeederRunner();
         Seeder[] seeders2 = new Seeder[COUNT];
         int time2 = runExperiment(COUNT, GROUND_LENGTH, runner2, seeders2);
+        System.out.println("Finished running experiment " +
+                "with Fibers");
 
         visualizeData(time1, seeders1, time2, seeders2);
-
+        System.out.println("Visualized data. !!!SWITCH!!! windows " +
+                "to see the results");
     }
 
     private static int runExperiment(int COUNT, int GROUND_LENGTH, SeederRunner runner, Seeder[] seeders) throws InterruptedException {
-        AtomicInteger timer = new AtomicInteger(1);
+        AtomicInteger seedTimer = new AtomicInteger(1);
         CountDownLatch completionLatch = new CountDownLatch(COUNT);
 
         for (int i = 0; i < COUNT; i++) {
-            seeders[i] = new Seeder(timer, completionLatch, GROUND_LENGTH);
+            seeders[i] = new Seeder(seedTimer, completionLatch, GROUND_LENGTH);
         }
-
 
         runner.doSeeding(seeders);
 
-
         completionLatch.await();
 
-
-        return timer.get();
+        return seedTimer.get();
     }
 
     private static void visualizeData(int time1, Seeder[] seeders1, int time2, Seeder[] seeders2) {
@@ -58,7 +57,4 @@ public class Main {
         jFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         jFrame.add(new VisualizerJPanel(time1, seeders1, time2, seeders2));
     }
-
-
 }
-

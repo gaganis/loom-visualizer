@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VisualizerJPanel extends JPanel {
-    private static final int LANE_HEIGHT = 10;
     private final int time1;
     private final Seeder[] seeders1;
     private final int time2;
@@ -29,7 +28,7 @@ public class VisualizerJPanel extends JPanel {
         int height = getHeight();
         int width = getWidth();
 
-        int partitionSize = time1 / width;
+        int partitionSize = Integer.max(time1, time2) / width;
         int laneHeight = height / (seeders1.length * 2);
 
         for (int i = 0; i < seeders1.length; i++) {
@@ -45,18 +44,25 @@ public class VisualizerJPanel extends JPanel {
                     ground2,
                     (int gradient) -> new Color(255 - gradient, 255 - gradient, 255));
 
-            g2d.setColor(Color.LIGHT_GRAY);
-            g2d.drawLine(0, (i * 2 + 1) * laneHeight, width, (i * 2 + 1) * laneHeight);
-            g2d.drawLine(0, (i * 2) * laneHeight, width, (i * 2) * laneHeight);
+            drawLaneBorders(g2d, width, laneHeight, i);
         }
 
+        drawCaptions(g, g2d, width);
+    }
+
+    private void drawCaptions(Graphics g, Graphics2D g2d, int width) {
         g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         g2d.setColor(Color.RED);
         g2d.drawString("Thread run ", width - 120, 20);
 
         g2d.setColor(Color.BLUE);
         g2d.drawString("Fiber run ", width - 120, 50);
+    }
 
+    private void drawLaneBorders(Graphics2D g2d, int width, int laneHeight, int i) {
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.drawLine(0, (i * 2 + 1) * laneHeight, width, (i * 2 + 1) * laneHeight);
+        g2d.drawLine(0, (i * 2) * laneHeight, width, (i * 2) * laneHeight);
     }
 
     private void drawGrounds(Graphics2D g2d, int partitionSize, int laneNumber, int laneHeight, int[] ground1, ColorCreator colorCreator) {
